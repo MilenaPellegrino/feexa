@@ -26,7 +26,7 @@
             margin: auto;
         }
 
-        /* Título de la página */
+        
         h1 {
             text-align: center;
             color: #1e3a8a;
@@ -40,13 +40,13 @@
             gap: 15px;
         }
 
-        /* Etiquetas */
+        
         label {
             font-weight: bold;
             color: #374151;
         }
 
-        /* Selectores */
+        
         select {
             padding: 10px;
             border: 1px solid #d1d5db;
@@ -54,7 +54,7 @@
             font-size: 16px;
         }
 
-        /* Botón */
+        
         button {
             padding: 12px;
             background-color: #1e3a8a;
@@ -66,7 +66,7 @@
             transition: background 0.3s ease;
         }
         
-        /* Efecto hover en el botón */
+        
         button:hover {
             background-color: #3b82f6;
         }
