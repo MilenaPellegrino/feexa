@@ -82,10 +82,13 @@ function calculateDatesExam() {
         startDates.forEach((fechaInicio, index) => {
 
             if (index === 0) {
-                result.innerHTML += `<h3 style="margin-top: 20px;">Exámenes enero/febrero</h3>`;
+                result.innerHTML += "<h3>Exámenes noviembre/diciembre</h3>";
                 dateCounter = 1;
             } else if (index === 2) {
-                result.innerHTML += `<h3 style="margin-top: 20px;">Exámenes julio/agosto</h3>`;
+                result.innerHTML += "<h3>Exámenes enero/febrero</h3>";
+                dateCounter = 1;
+            } else if (index === 4) {
+                result.innerHTML += "<h3>Exámenes julio/agosto</h3>";
                 dateCounter = 1;
             } else if (index === 5) {
                 result.innerHTML += `<h3 style="margin-top: 20px;">Exámenes noviembre/diciembre</h3>`;

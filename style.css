@@ -75,12 +75,18 @@
         #result {
             display: none;
             margin-top: 20px;
-            padding: 15px;
+            padding: 20px;
             background: #e0f2fe;
             color: #0c4a6e;
             border-radius: 8px;
             font-size: 16px;
             line-height: 1.6;
+        }
+
+
+        /* Estilos de los titulares de exámenes */
+        #result h3:not(:first-child) {
+            margin-top: 20px;
         }
 
         /* Estilo del footer */
