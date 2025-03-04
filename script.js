@@ -1,7 +1,5 @@
 
 const startDates = [
-    new Date("2025-02-10"),
-    new Date("2025-02-24"),
     new Date("2025-06-30"),
     new Date("2025-07-21"),
     new Date("2025-08-04"),
@@ -82,15 +80,15 @@ function calculateDatesExam() {
         startDates.forEach((fechaInicio, index) => {
 
             if (index === 0) {
-                result.innerHTML += "<h3>Exámenes enero/febrero</h3>";
-                dateCounter = 1;
-            } else if (index === 2) {
                 result.innerHTML += "<h3>Exámenes julio/agosto</h3>";
                 dateCounter = 1;
-            } else if (index === 5) {
-                result.innerHTML += "<h3 style=margin-top: 20px; >Exámenes noviembre/diciembre</h3>";
+            } else if (index === 3) {
+                result.innerHTML += "<h3>Exámenes noviembre/diciembre</h3>";
                 dateCounter = 1;
-            } 
+            }// else if (index === 5) {
+             //   result.innerHTML += "<h3 style=margin-top: 20px; ></h3>";
+              //  dateCounter = 1;
+            //} 
 
             // Calcular la fecha de examen
             const examDate = new Date(fechaInicio);
