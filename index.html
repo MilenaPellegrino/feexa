@@ -3,15 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor de Fechas de Exámenes</title>
+    <title>Buscador de Fecha de Exámenes</title>
     <link rel="stylesheet" href="style.css">
 </head>
     
 <body>
     <div class="container">
-        <h1>Gestor de Fechas de Exámenes</h1>
+        <h1>Buscador de Fecha de Exámenes</h1>
 
         <form id="examenForm">
+            <label for="career">Selecciona la carrera:</label>
+            <select id="career" name="career" onchange="loadSubjects()">
+                <option value="computacion">Licenciatura en Ciencias de la Computación</option>
+                <option value="maplicada">Licenciatura en Matemática Aplicada</option>
+                <option value="matematica">Licenciatura en Matemática</option>
+                <option value="fisica">Licenciatura en Física</option>
+                <option value="astronomia">Licenciatura en Astronomía </option>
+                <option value="pmatematica">Profesorado en Matemática</option>
+                <option value="pfisica">Profesorado en Física</option>
+                <option value="hidrometeorologia">Licenciatura en Hidrometeorología</option>
+            </select>
+ 
             <label for="year">Selecciona el año de la carrera:</label>
             <select id="year" name="year" onchange="loadSubjects()">
                 <option value="1">1er año</option>
