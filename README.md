@@ -1,6 +1,6 @@
 # Fechas de exámenes finales - FaMAF
 
-Este proyecto te dice exactamente cuando son las fechas exámenes de una materia en particular. Solo funciona para las materias de Compu.
+Este proyecto te dice exactamente cuando son las fechas exámenes de una materia en particular de TODAS las carreras de FaMAF.
 
 ## Si queres contribuir al proyecto:
 
