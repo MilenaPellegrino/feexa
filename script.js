@@ -1,10 +1,12 @@
 
 const startDates = [
-    new Date("2025-06-30"),
-    new Date("2025-07-21"),
-    new Date("2025-08-04"),
     new Date("2025-12-01"),
     new Date("2025-12-15"),
+    new Date("2026-02-09"),
+    new Date("2026-02-23"),
+    new Date("2026-06-29"),
+    new Date("2026-07-20"),
+    new Date("2026-08-03"),
 ];
 const ExamdatesByCareer = {
     computacion: {
@@ -322,10 +324,13 @@ function calculateDatesExam() {
         let dateCounter = 1;
         startDates.forEach((fechaInicio, index) => {
             if (index === 0) {
-                result.innerHTML += "<h3>Exámenes julio/agosto</h3>";
+                result.innerHTML += "<h3>Exámenes diciembre</h3>";
                 dateCounter = 1;
-            } else if (index === 3) {
-                result.innerHTML += "<h3>Exámenes noviembre/diciembre</h3>";
+            } else if (index === 2) {
+                result.innerHTML += "<h3>Exámenes febrero</h3>";
+                dateCounter = 1;
+            } else if (index === 4) {
+                result.innerHTML += "<h3>Exámenes julio/agosto</h3>";
                 dateCounter = 1;
             }
 
