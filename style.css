@@ -97,3 +97,48 @@
             background-color: #f1f1f1;
             margin-top: 20px;
         }
+
+        /* Pestaña y panel de aula */
+        .aula-tab {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .tab-button {
+            background: transparent;
+            border: 2px solid #1e3a8a;
+            color: #1e3a8a;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .tab-button:hover {
+            background: #eef2ff;
+        }
+
+        .aula-panel {
+            background: #e0f2fe;
+            border: 1px solid #7dd3fc;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            color: #0c4a6e;
+        }
+
+        .aula-link-container {
+            margin-top: 10px;
+        }
+
+        .aula-link-container a {
+            color: #1e3a8a;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .aula-link-container a:hover {
+            color: #3b82f6;
+        }

@@ -14,6 +14,20 @@
     <div class="container">
         <h1>Buscador de Fecha de Exámenes</h1>
 
+        <!-- Pestaña para mostrar info del aula -->
+        <div class="aula-tab">
+            <button id="aulaToggle" class="tab-button" type="button" onclick="toggleAulaPanel()">¿En qué aula rindo?</button>
+        </div>
+
+        <div id="aulaPanel" class="aula-panel" style="display: none;">
+            <p>Unos días antes del examen, en el siguiente link se va a poder ver en qué aula se realiza el examen e info adicional del mismo. </p>
+            <p class="aula-link-container">
+                <a href="https://www.famaf.unc.edu.ar/la-facultad/institucional/areas-y-departamentos/%C3%A1rea-direcci%C3%B3n-de-ense%C3%B1anza/despacho-de-Estudiantes-informa/" target="_blank" rel="noopener noreferrer">
+                    Ver aulas de examen
+                </a>
+            </p>
+        </div>
+
         <form id="examenForm">
             <label for="career">Selecciona la carrera:</label>
             <select id="career" name="career" onchange="loadSubjects()">

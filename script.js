@@ -352,4 +352,16 @@ function calculateDatesExam() {
 }
 
 
+// Funcionalidad para la pestaña  del aula
+function toggleAulaPanel() {
+    const panel = document.getElementById('aulaPanel');
+    if (panel.style.display === 'none' || panel.style.display === '') {
+        panel.style.display = 'block';
+    } else {
+        panel.style.display = 'none';
+    }
+}
+
+
+
 
