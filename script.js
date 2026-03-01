@@ -1,7 +1,6 @@
 
 const startDates = [
-    new Date("2026-02-09"),
-    new Date("2026-02-23"),
+
     new Date("2026-06-29"),
     new Date("2026-07-20"),
     new Date("2026-08-03"),
@@ -324,15 +323,16 @@ function calculateDatesExam() {
         let dateCounter = 1;
         startDates.forEach((fechaInicio, index) => {
             if (index === 0) {
-                result.innerHTML += "<h3>Exámenes febrero</h3>";
-                dateCounter = 1;
-            } else if (index === 2) {
                 result.innerHTML += "<h3>Exámenes julio/agosto</h3>";
                 dateCounter = 1;
-            } else if (index === 5) {
+            } else if (index === 3) {
                 result.innerHTML += "<h3>Exámenes diciembre</h3>";
                 dateCounter = 1;
             }
+            // } else if (index === 5) {
+            //     result.innerHTML += "<h3>Exámenes </h3>";
+            //     dateCounter = 1;
+            // }
 
             const examDate = new Date(fechaInicio);
             examDate.setDate(fechaInicio.getDate() + dayExamen);
