@@ -343,14 +343,15 @@ function calculateDatesExam() {
 
             result.innerHTML += `
                 <p>
-                    <button
-                        type="button"
-                        class="exam-date-button"
+                    <a
+                        href="#"
+                        class="exam-date-link"
                         data-llamado="${dateCounter}"
                         data-date="${day}/${month}/${year}"
+                        style="color: inherit; text-decoration: none;"
                     >
                         <strong>Llamado ${dateCounter}:</strong> ${day}/${month}/${year}
-                    </button>
+                    </a>
                 </p>
             `;
             dateCounter++; 
