@@ -71,7 +71,7 @@
         const emailInput = modal.querySelector("#examReminderEmail");
         const errorText = modal.querySelector("#examReminderError");
 
-        text.innerHTML = `¿Querés recibir un recordatorio por mail para <strong>${llamado}</strong> (<span style="color:#2563eb;font-weight:700;">${examDate}</span>)?`;
+        text.innerHTML = `¿Querés recibir un recordatorio por mail para el <strong>${llamado}</strong> (<span style="color:#2563eb;font-weight:700;">${examDate}</span>)?`;
         text.style.display = "block";
 
         modal.querySelector("#examReminderQuestionActions").style.display = "flex";
