@@ -1,4 +1,37 @@
 (function () {
+    const EMAIL_HISTORY_KEY = "examReminderEmailHistory";
+
+    function getEmailHistory() {
+        return JSON.parse(localStorage.getItem(EMAIL_HISTORY_KEY) || "[]");
+    }
+
+    function saveEmailToHistory(email) {
+        const normalizedEmail = email.trim().toLowerCase();
+        const history = getEmailHistory().filter(function (item) {
+            return item !== normalizedEmail;
+        });
+
+        history.unshift(normalizedEmail);
+        localStorage.setItem(EMAIL_HISTORY_KEY, JSON.stringify(history.slice(0, 10)));
+    }
+
+    function getLastEmailFromHistory() {
+        const history = getEmailHistory();
+        return history[0] || "";
+    }
+
+    function populateEmailHistorySuggestions(modal) {
+        const historyList = modal.querySelector("#examReminderEmailHistoryList");
+        const history = getEmailHistory();
+
+        historyList.innerHTML = "";
+        history.forEach(function (email) {
+            const option = document.createElement("option");
+            option.value = email;
+            historyList.appendChild(option);
+        });
+    }
+
     function parseDateFromDDMMYYYY(dateText) {
         const parts = dateText.split("/").map(Number);
         if (parts.length !== 3 || parts.some(Number.isNaN)) {
@@ -104,7 +137,8 @@
 
                 <div id="examReminderEmailStep" style="display:none;margin-top:16px;padding-top:14px;border-top:1px solid #e5e7eb;">
                     <label for="examReminderEmail" style="display:block;font-size:14px;font-weight:600;margin-bottom:6px;color:#334155;">Tu correo electrónico</label>
-                    <input id="examReminderEmail" type="email" placeholder="nombre@mi.unc.edu.ar" style="width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;outline:none;" />
+                    <input id="examReminderEmail" type="email" list="examReminderEmailHistoryList" autocomplete="email" placeholder="nombre@mi.unc.edu.ar" style="width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;outline:none;" />
+                    <datalist id="examReminderEmailHistoryList"></datalist>
                     <p style="margin:10px 0 0 0;font-size:13px;line-height:1.45;color:#475569;">Te vamos a avisar un día antes del último día de inscripción y también el último día de inscripción.</p>
                     <p id="examReminderError" style="display:none;margin:10px 0 0 0;font-size:13px;color:#dc2626;">Ingresá un mail válido para continuar.</p>
                     <div style="margin-top:14px;display:flex;justify-content:flex-end;gap:10px;">
@@ -134,7 +168,9 @@
         modal.querySelector("#examReminderSuccess").style.display = "none";
         modal.querySelector("#examReminderSuccessActions").style.display = "none";
         modal.querySelector("#examReminderError").style.display = "none";
-        modal.querySelector("#examReminderEmail").value = "";
+        modal.querySelector("#examReminderError").textContent = "Ingresá un mail válido para continuar.";
+        modal.querySelector("#examReminderEmail").value = getLastEmailFromHistory();
+        populateEmailHistorySuggestions(modal);
 
         modal.style.display = "flex";
     }
@@ -210,6 +246,8 @@
                 errorText.style.display = "block";
                 return;
             }
+
+            saveEmailToHistory(email);
 
             const schedule = buildReminderSchedule(selectedDate);
             if (!schedule) {
