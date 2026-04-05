@@ -1,4 +1,74 @@
 (function () {
+    function parseDateFromDDMMYYYY(dateText) {
+        const parts = dateText.split("/").map(Number);
+        if (parts.length !== 3 || parts.some(Number.isNaN)) {
+            return null;
+        }
+
+        const [day, month, year] = parts;
+        const date = new Date(year, month - 1, day);
+
+        if (
+            date.getFullYear() !== year ||
+            date.getMonth() !== month - 1 ||
+            date.getDate() !== day
+        ) {
+            return null;
+        }
+
+        return date;
+    }
+
+    function formatDateDDMMYYYY(date) {
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    function isBusinessDay(date) {
+        const dayOfWeek = date.getDay();
+        return dayOfWeek !== 0 && dayOfWeek !== 6;
+    }
+
+    function addBusinessDays(baseDate, amount) {
+        const date = new Date(baseDate);
+        const step = amount >= 0 ? 1 : -1;
+        let remaining = Math.abs(amount);
+
+        while (remaining > 0) {
+            date.setDate(date.getDate() + step);
+            if (isBusinessDay(date)) {
+                remaining -= 1;
+            }
+        }
+
+        return date;
+    }
+
+    function buildReminderSchedule(examDateText) {
+        const examDate = parseDateFromDDMMYYYY(examDateText);
+        if (!examDate) {
+            return null;
+        }
+
+        const inscriptionCloseDate = addBusinessDays(examDate, -3);
+        const reminderOneDate = addBusinessDays(inscriptionCloseDate, -1);
+
+        return {
+            examDate,
+            inscriptionCloseDate,
+            reminderOneDate,
+        };
+    }
+
+    function saveReminderSubscription(subscription) {
+        const storageKey = "examReminderSubscriptions";
+        const current = JSON.parse(localStorage.getItem(storageKey) || "[]");
+        current.push(subscription);
+        localStorage.setItem(storageKey, JSON.stringify(current));
+    }
+
     function isValidEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
@@ -141,9 +211,39 @@
                 return;
             }
 
+            const schedule = buildReminderSchedule(selectedDate);
+            if (!schedule) {
+                errorText.textContent = "No pude calcular la fecha. Probá de nuevo.";
+                errorText.style.display = "block";
+                return;
+            }
+
+            const closeDateText = formatDateDDMMYYYY(schedule.inscriptionCloseDate);
+            const reminderOneText = formatDateDDMMYYYY(schedule.reminderOneDate);
+
+            saveReminderSubscription({
+                email,
+                call: selectedCall,
+                examDate: selectedDate,
+                inscriptionCloseDate: closeDateText,
+                reminders: [
+                    {
+                        type: "oneBusinessDayBeforeClose",
+                        date: reminderOneText,
+                    },
+                    {
+                        type: "closeDate",
+                        date: closeDateText,
+                    },
+                ],
+                createdAt: new Date().toISOString(),
+            });
+
             errorText.style.display = "none";
             emailStep.style.display = "none";
-            successBox.innerHTML = `Perfecto. Vamos a enviar recordatorios a <strong>${email}</strong> para <strong>${selectedCall}</strong> (<span style="color:#2563eb;font-weight:700;">${selectedDate}</span>): un día antes del último día de inscripción y el último día de inscripción.`;
+            successBox.innerHTML = `Perfecto. Vamos a enviar <strong>2 recordatorios</strong> a <strong>${email}</strong> para <strong>${selectedCall}</strong> (<span style="color:#2563eb;font-weight:700;">${selectedDate}</span>).<br><br>
+                <strong>Recordatorio 1:</strong> ${reminderOneText} (1 día hábil antes del cierre).<br>
+                <strong>Recordatorio 2:</strong> ${closeDateText} (último día de inscripción).`;
             successBox.style.display = "block";
             successActions.style.display = "flex";
         });
