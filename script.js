@@ -341,7 +341,18 @@ function calculateDatesExam() {
             const month = (examDate.getMonth() + 1).toString().padStart(2, '0'); 
             const year = examDate.getFullYear();
 
-            result.innerHTML += `<p><strong>Llamado ${dateCounter}:</strong>  ${day}/${month}/${year}</p>`;
+            result.innerHTML += `
+                <p>
+                    <button
+                        type="button"
+                        class="exam-date-button"
+                        data-llamado="${dateCounter}"
+                        data-date="${day}/${month}/${year}"
+                    >
+                        <strong>Llamado ${dateCounter}:</strong> ${day}/${month}/${year}
+                    </button>
+                </p>
+            `;
             dateCounter++; 
         });
     } else {
