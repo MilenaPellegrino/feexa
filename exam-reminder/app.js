@@ -3,6 +3,7 @@
     const dateUtils = namespace.dateUtils;
     const storage = namespace.storage;
     const modalApi = namespace.modal;
+    const mailer = namespace.mailer;
 
     function isValidEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -27,6 +28,7 @@
         const emailStep = modal.querySelector("#examReminderEmailStep");
         const successBox = modal.querySelector("#examReminderSuccess");
         const successActions = modal.querySelector("#examReminderSuccessActions");
+        const confirmButtonInitialText = buttonConfirm.textContent;
         let selectedCall = "";
         let selectedDate = "";
 
@@ -66,7 +68,7 @@
             errorText.style.display = "none";
         });
 
-        buttonConfirm.addEventListener("click", function () {
+        buttonConfirm.addEventListener("click", async function () {
             const email = emailInput.value.trim();
 
             if (!isValidEmail(email)) {
@@ -84,8 +86,7 @@
             const closeDateText = dateUtils.formatDateDDMMYYYY(schedule.inscriptionCloseDate);
             const reminderOneText = dateUtils.formatDateDDMMYYYY(schedule.reminderOneDate);
 
-            storage.saveEmailToHistory(email);
-            storage.saveReminderSubscription({
+            const subscription = {
                 email: email,
                 call: selectedCall,
                 examDate: selectedDate,
@@ -101,7 +102,32 @@
                     },
                 ],
                 createdAt: new Date().toISOString(),
-            });
+            };
+
+            buttonConfirm.disabled = true;
+            buttonConfirm.textContent = "Enviando...";
+
+            let sendResult = { ok: false, message: "No se pudo enviar el mail." };
+            if (mailer && typeof mailer.sendSubscriptionEmail === "function") {
+                sendResult = await mailer.sendSubscriptionEmail(subscription);
+            } else {
+                sendResult = {
+                    ok: false,
+                    message: "No esta disponible el servicio de envio de mails.",
+                };
+            }
+
+            buttonConfirm.disabled = false;
+            buttonConfirm.textContent = confirmButtonInitialText;
+
+            if (!sendResult.ok) {
+                errorText.textContent = sendResult.message;
+                errorText.style.display = "block";
+                return;
+            }
+
+            storage.saveEmailToHistory(email);
+            storage.saveReminderSubscription(subscription);
 
             errorText.style.display = "none";
             emailStep.style.display = "none";

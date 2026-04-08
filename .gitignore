@@ -1,0 +1,3 @@
+reminder-server/node_modules/
+reminder-server/.env
+reminder-server/data/subscriptions.json
