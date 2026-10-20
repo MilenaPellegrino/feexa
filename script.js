@@ -1,10 +1,12 @@
 
 const startDates = [
-
-    new Date("2026-07-20"),
-    new Date("2026-08-03"),
     new Date("2026-11-30"),
     new Date("2026-12-14"),
+    new Date("2027-02-10"),
+    new Date("2027-02-24"),
+    new Date("2027-06-28"),
+    new Date("2027-07-19"),
+    new Date("2027-08-02"),
 ];
 const ExamdatesByCareer = {
     computacion: {
